@@ -99,7 +99,7 @@ class App extends React.Component {
           </Grid>
         </div>
         <div className="scene">
-          <img src={require("../src/worst.png")} id="scene"/>
+          <img src={require("../src/best.png")} id="scene"/>
         </div>
       </div>
     );
