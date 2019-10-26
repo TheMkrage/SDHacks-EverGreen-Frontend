@@ -1,16 +1,15 @@
 import React from 'react';
 import AceEditor from 'react-ace';
-import { getPound } from './network/backend.js'
-import InputPanel from "./InputPanel.js"
+import { getPound } from './network/backend.js';
+import InputPanel from "./InputPanel.js";
 import Grid from '@material-ui/core/Grid';
-import { CSSTransitionGroup } from 'react-transition-group';
-import { withStyles } from '@material-ui/styles'
+import { withStyles } from '@material-ui/styles';
 
 import './App.css';
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-dreamweaver";
-
+import { styled } from '@material-ui/core';
 
 const styles = ({
   root: {
@@ -64,6 +63,13 @@ class App extends React.Component {
     });
   }
 
+  handleClick() {
+    const sceneFadeOut = document.getElementById('scene');
+    sceneFadeOut.classList.toggle('scene-leave');
+    const sceneFadeIn = document.getElementById('next-scene');
+    sceneFadeIn.classList.toggle('scene-come');
+  }
+
   render() {
     const { classes } = this.props
 
@@ -99,14 +105,17 @@ class App extends React.Component {
             </Grid>
           </Grid>
         </div>
-        <div className="scene">    
-          <CSSTransitionGroup
-          transitionName="example"
-          transitionAppear={true}
-          transitionEnterTimeout={1000}
-          transitionLeaveTimeout={300}>
-          <img src={require("../src/best.png")} id="scene"/>
-          </CSSTransitionGroup>
+        <div className="scenediv">  
+            <img 
+              src={require("../src/best.png")} 
+              id="scene"
+              onClick={() => this.handleClick()}
+            />
+            <img 
+              src={require("../src/worst.png")} 
+              id="next-scene"
+              onClick={() => this.handleClick()}
+            />
         </div>
       </div>
     );
