@@ -3,7 +3,7 @@ import AceEditor from 'react-ace';
 import { getPound } from './network/backend.js'
 import InputPanel from "./InputPanel.js"
 import Grid from '@material-ui/core/Grid';
-
+import { CSSTransitionGroup } from 'react-transition-group';
 
 import './App.css';
 
@@ -86,8 +86,13 @@ export default class App extends React.Component {
             </Grid>
           </Grid>
         </div>
-        <div className="scene">
+        <div className="scene">        
+          <CSSTransitionGroup
+          transitionName="example"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={300}>
           <img src={require("../src/best.png")} id="scene"/>
+        </CSSTransitionGroup>
         </div>
       </div>
     );
