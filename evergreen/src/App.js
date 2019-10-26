@@ -3,7 +3,7 @@ import AceEditor from 'react-ace';
 import { getPound } from './network/backend.js'
 import InputPanel from "./InputPanel.js"
 import Grid from '@material-ui/core/Grid';
-
+import { withStyles } from '@material-ui/styles'
 
 import './App.css';
 
@@ -11,7 +11,17 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 
 
-export default class App extends React.Component {
+const styles = ({
+  root: {
+    flexGrow: 1,
+    padding: 25,
+  },
+  outer: {
+
+  },
+});
+
+class App extends React.Component {
 
   constructor(props, context) {
     super(props, context);
@@ -53,7 +63,9 @@ export default class App extends React.Component {
     });
   }
 
-  render(){
+  render() {
+    const { classes } = this.props
+
     return (
       <div className="App">
         <header className="App-header">
@@ -68,7 +80,7 @@ export default class App extends React.Component {
           </p>
         </div>
         <div className="ide">
-          <Grid container direction="row">
+          <Grid container direction="row" className={classes.outer}>
             <Grid item xs={10}>
               <AceEditor
                 mode="java"
@@ -76,12 +88,12 @@ export default class App extends React.Component {
                 theme="dreamweaver"
                 wrapEnabled="true"
                 height="80vh"
-                width="85vw"
+                width="78vw"
                 onChange={this.onEditorChange.bind(this)}
                 className="ide-editor"
               />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={2}>
               <InputPanel />
             </Grid>
           </Grid>
@@ -93,3 +105,5 @@ export default class App extends React.Component {
     );
   }
 }
+
+export default withStyles(styles)(App)
