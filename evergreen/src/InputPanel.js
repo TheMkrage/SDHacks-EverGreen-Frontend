@@ -21,7 +21,7 @@ export default class InputPanel extends React.Component {
   render() {
     return (
       <Paper>
-        <Grid direction="column">
+        <Grid container direction="column">
           <Select
             value={this.state.machine}
             onChange={this.handleMachineChange.bind(this)}
