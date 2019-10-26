@@ -30,10 +30,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  bottom:0;
+  bottom: 0;
   padding-left: 1%;
   padding-right: 1%;
   padding-top: 1.5%;
+  z-index: -2;
 }
 
 .ide-editor {
@@ -42,7 +43,7 @@
   z-index: 0;
 }
 
-.scene {
+.scenediv {
   background-color: #c7e7f3;
   height: 10px;
   width: 100%;
@@ -50,29 +51,32 @@
   bottom: 0px;
 }
 
-.scene #scene {
+#scene {
   width: 100%;
   position: absolute;
   bottom: 0px;
   left: 0px;
   z-index: 0;
-  pointer-events: none;
-}
-
-.example-enter {
-  opacity: 0.01;
-}
-
-.example-enter.example-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.example-leave {
+  /* pointer-events: none; */
+  transition: opacity 5s;
   opacity: 1;
 }
 
-.example-leave.example-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
+#scene.scene-leave {
+  opacity: 0;
+}
+
+#next-scene {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 0;
+  /* pointer-events: none; */
+  transition: opacity 5s;
+  opacity: 0;
+}
+
+#next-scene.scene-come {
+  opacity: 1;
 }
