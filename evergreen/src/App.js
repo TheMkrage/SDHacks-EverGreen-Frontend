@@ -2,6 +2,8 @@ import React from 'react';
 import AceEditor from 'react-ace';
 import { getPound } from './network/backend.js'
 import InputPanel from "./InputPanel.js"
+import Grid from '@material-ui/core/Grid';
+
 
 import './App.css';
 
@@ -66,17 +68,23 @@ export default class App extends React.Component {
           </p>
         </div>
         <div className="ide">
-          <AceEditor
-            mode="java"
-            value={this.state.code}
-            theme="dreamweaver"
-            wrapEnabled="true"
-            height="80vh"
-            width="85vw"
-            onChange={this.onEditorChange.bind(this)}
-            className="ide-editor"
-          />
-          <InputPanel />
+          <Grid container direction="row">
+            <Grid item xs={10}>
+              <AceEditor
+                mode="java"
+                value={this.state.code}
+                theme="dreamweaver"
+                wrapEnabled="true"
+                height="80vh"
+                width="85vw"
+                onChange={this.onEditorChange.bind(this)}
+                className="ide-editor"
+              />
+            </Grid>
+            <Grid item xs={10}>
+              <InputPanel />
+            </Grid>
+          </Grid>
         </div>
         <div className="scene">
           <img src={require("../src/worst.png")} id="scene"/>
