@@ -99,13 +99,14 @@ class App extends React.Component {
             </Grid>
           </Grid>
         </div>
-        <div className="scene">        
+        <div className="scene">    
           <CSSTransitionGroup
           transitionName="example"
-          transitionEnterTimeout={500}
+          transitionAppear={true}
+          transitionEnterTimeout={1000}
           transitionLeaveTimeout={300}>
           <img src={require("../src/best.png")} id="scene"/>
-        </CSSTransitionGroup>
+          </CSSTransitionGroup>
         </div>
       </div>
     );

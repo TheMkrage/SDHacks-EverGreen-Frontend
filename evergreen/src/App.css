@@ -56,10 +56,11 @@
   bottom: 0px;
   left: 0px;
   z-index: 0;
+  pointer-events: none;
 }
 
 .example-enter {
-  opacity: 0;
+  opacity: 0.01;
 }
 
 .example-enter.example-enter-active {
@@ -72,6 +73,6 @@
 }
 
 .example-leave.example-leave-active {
-  opacity: 0;
+  opacity: 0.01;
   transition: opacity 300ms ease-in;
 }
