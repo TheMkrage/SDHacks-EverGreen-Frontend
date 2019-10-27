@@ -51,21 +51,6 @@
   bottom: 0px;
 }
 
-#scene {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  z-index: 0;
-  /* pointer-events: none; */
-  transition: opacity 5s;
-  opacity: 1;
-}
-
-#scene.scene-leave {
-  opacity: 0;
-}
-
 #next-scene {
   width: 100%;
   position: absolute;
@@ -79,4 +64,25 @@
 
 #next-scene.scene-come {
   opacity: 1;
+}
+
+
+#art {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  z-index: 0;
+  /* pointer-events: none; */
+  opacity: 1;
+  transform: translateY(200px);
+  transition: transform 800ms ease-in;
+}
+
+#art.slideIn {
+  transform: translateY(0);
+}
+
+#art.slideOut {
+  transform: translateY(200px);
 }
