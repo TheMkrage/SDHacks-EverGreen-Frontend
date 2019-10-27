@@ -8,9 +8,19 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import phone from "./phone.png";
-import plane from "./plane.png";
-import car from "./car.png";
+import {
+  ChasingDots,
+  Circle,
+  CubeGrid,
+  DoubleBounce,
+  FadingCircle,
+  FoldingCube,
+  Pulse,
+  RotatingPlane,
+  ThreeBounce,
+  WanderingCubes,
+  Wave
+} from 'better-react-spinkit'
 
 const styles = ({
   paper: {
@@ -56,7 +66,7 @@ class InputPanel extends React.Component {
           </Grid>
           <Grid item container direction="row" spacing={5}  justify="space-evenly" alignItems="center">
             <Grid item xs>
-              <FormControl className={classes.formControl} fullWidth> 
+              <FormControl className={classes.formControl} fullWidth>
                 <InputLabel htmlFor="machine-select">Machine</InputLabel>
                 <Select
                   value={this.state.machine}
@@ -98,6 +108,7 @@ class InputPanel extends React.Component {
 
     var outputPanel = (
       <Paper className={classes.paper}>
+        <FoldingCube color='#448479' size={50}/>
         <Grid container direction="column" spacing={1} alignItems="stretch" justify="center">
 
           <Grid item>
