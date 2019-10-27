@@ -30,9 +30,9 @@ const styles = ({
   },
   bigNum: {
     color: "#484848",
-    fontSize: "5em",
-    marginBlockStart: "0",
-    marginBlockEnd: "0",
+    fontSize: "3em",
+    marginBlockStart: "0.1em",
+    marginBlockEnd: "0.1em",
     fontWeight: "normal",
   },
   smallWord: {
@@ -112,29 +112,25 @@ class InputPanel extends React.Component {
       </Paper>
     )
 
-    var string_pounds = this.props.pounds.toPrecision(4).toString()
+    var string_pounds = this.props.pounds.toPrecision(2).toString()
     if (string_pounds.length > 5) {
-      string_pounds = this.props.pounds.toExponential(2)
+      string_pounds = this.props.pounds.toExponential(1)
     }
     var outputPanel = (
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={1} alignItems="stretch" justify="center">
-
-          <Grid item>
-            <Typography variant="h6" text-align="left">Analytics</Typography>
-          </Grid>
-
           <Grid item container direction="row" spacing={2} justify="space-between" alignItems="center">
             <Grid item xs container direction="column" alignItems="left" xs={5}>
               <Grid item>
-                <p className={classes.smallWord}>Every 24 hours</p>
+                <h4 className={classes.smallWord}>Daily Emissions</h4>
               </Grid>
               <Grid item>
                 <h1 className={classes.bigNum}> {string_pounds} </h1>
               </Grid>
               <Grid item>
-                <h2 className={classes.smallWord}> lbs CO<sub>2</sub> </h2>
+                <h2 className={classes.smallWord}> lb CO<sub>2</sub></h2>
               </Grid>
+
             </Grid>
 
             <Grid item container direction="column" xs={7} spacing={-2}>
