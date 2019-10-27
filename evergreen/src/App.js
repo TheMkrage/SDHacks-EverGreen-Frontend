@@ -48,7 +48,7 @@ class App extends React.Component {
     super(props, context);
 
     this.state = {
-        code: 'def run():\n\tpass',
+        code: 'def run():\n    pass',
         typing: false,
         typingTimeout: 0,
         pounds: 0,
@@ -134,6 +134,7 @@ class App extends React.Component {
 
   onEditorChange(newValue) {
     newValue = newValue.replace(/"/g, "'");
+    newValue = newValue.replace(/\t/g, '    ');
     if (this.state.typingTimeout) {
        clearTimeout(this.state.typingTimeout);
     }

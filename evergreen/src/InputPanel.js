@@ -112,6 +112,10 @@ class InputPanel extends React.Component {
       </Paper>
     )
 
+    var string_pounds = this.props.pounds.toPrecision(4).toString()
+    if (string_pounds.length > 5) {
+      string_pounds = this.props.pounds.toExponential(2)
+    }
     var outputPanel = (
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={1} alignItems="stretch" justify="center">
@@ -123,13 +127,13 @@ class InputPanel extends React.Component {
           <Grid item container direction="row" spacing={2} justify="space-between" alignItems="center">
             <Grid item xs container direction="column" alignItems="left" xs={5}>
               <Grid item>
-                <p className={classes.smallWord}>Every 24 hours</p> 
+                <p className={classes.smallWord}>Every 24 hours</p>
               </Grid>
               <Grid item>
-                <h1 className={classes.bigNum}> {this.props.pounds} </h1>  
+                <h1 className={classes.bigNum}> {string_pounds} </h1>
               </Grid>
               <Grid item>
-                <h2 className={classes.smallWord}> lbs CO2 </h2>  
+                <h2 className={classes.smallWord}> lbs CO2 </h2>
               </Grid>
             </Grid>
 
