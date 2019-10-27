@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import phone from "./phone.png";
-import plane from "./plane.png";
-import car from "./car.png";
+import {
+  FoldingCube,
+} from 'better-react-spinkit'
 import zIndex from '@material-ui/core/styles/zIndex';
 
 const styles = ({
@@ -72,7 +72,7 @@ class InputPanel extends React.Component {
         <Grid container direction="column" spacing={0} alignItems="stretch">
           <Grid item container direction="row" spacing={5}  justify="space-evenly" alignItems="center">
             <Grid item xs>
-              <FormControl className={classes.formControl} fullWidth> 
+              <FormControl className={classes.formControl} fullWidth>
                 <InputLabel htmlFor="machine-select">Machine</InputLabel>
                 <Select
                   value={this.state.machine}
@@ -167,6 +167,34 @@ class InputPanel extends React.Component {
         </Grid>
       </Paper>
     )
+    if(this.props.pounds === 0) {
+      outputPanel = (
+        <Paper className={classes.paper}>
+          <Grid container direction="column" spacing={1} alignItems="center" justify="center">
+            <Grid item>
+              <Typography variant="h2">😞</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">Add or check your code!</Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+      )
+    }
+    if(this.props.isAnalyzing) {
+      outputPanel = (
+        <Paper className={classes.paper}>
+          <Grid container direction="column" spacing={1} alignItems="center" justify="center">
+            <Grid item>
+              <FoldingCube color='#448479' size={50}/>
+            </Grid>
+            <Grid item>
+              <Typography>Analyzing your code...</Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+      )
+    }
     return (
       <Grid container direction="column" spacing={2} zIndex={10}>
         <Grid item>
