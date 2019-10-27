@@ -11,9 +11,3 @@ export function getPound(code, requests_per_day, inst_name) {
     body: JSON.stringify(body)
   })
 }
-
-export function getMetric(pounds) {
-  return fetch(API + "/metrics?pounds=" + pounds, {
-    method: 'GET',
-  })
-}

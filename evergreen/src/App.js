@@ -12,6 +12,12 @@ import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import { styled } from '@material-ui/core';
+import Popper from '@material-ui/core/Popper';
+import Paper from '@material-ui/core/Paper';
+
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
 
 WebFont.load({
   google: {
@@ -20,6 +26,13 @@ WebFont.load({
 });
 
 const styles = ({
+  popover: {
+    //pointerEvents: 'none'
+  },
+  paper: {
+    padding: 5,
+    //pointerEvents: 'none'
+  },
   root: {
     flexGrow: 1,
     padding: 25,
@@ -42,8 +55,10 @@ class App extends React.Component {
         requests_per_day: 100,
         machine: "local",
         animation_stage_cur: 0,
-        animation_stage: 0
+        animation_stage: 0,
+        markers: []
     }
+    this.makeRequest(100, "local")
   }
 
   onInputPanel(machine, requests_per_day) {
@@ -86,19 +101,14 @@ class App extends React.Component {
       })
       .then(data => {
         var stage = Math.floor( 1 * (Math.log(data.pounds + 1) / Math.log(1.8)));
-        console.log(stage)
-        this.setState({ pounds: data.pounds, animation_stage: stage })
+        var suggestions = data.suggestions
+        var markers = suggestions.map(s => { return { startRow: s.start - 1, startCol: 0, endRow: s['end'], endCol: 0, className: 'error-marker', type: 'background', line: s.line }})
+        console.log(markers)
+        this.setState({ pounds: data.pounds, animation_stage: stage, markers: markers, impacts: data.impacts })
         var self = this
         setTimeout(function () {
             self.respondToStage();
           }, 400)
-        getMetric(data.pounds)
-          .then(response => {
-            return response.json()
-          })
-          .then(data => {
-            this.setState({ impacts: data.impacts })
-          })
       })
   }
 
@@ -114,7 +124,7 @@ class App extends React.Component {
        typing: false,
        typingTimeout: setTimeout(function () {
            self.makeRequest(self.state.requests_per_day, self.state.machine);
-         }, 2000)
+         }, 1500)
     });
   }
 
@@ -126,8 +136,36 @@ class App extends React.Component {
     // sceneFadeIn.classList.toggle('scene-come');
   }
 
+  handleAccept(key) {
+    console.log(key)
+    var marker = this.state.markers[key]
+    var new_code = this.state.code.split('\n')
+    console.log(new_code.slice(0, marker.startRow))
+    console.log(marker.line.split('\n'))
+    console.log(new_code.slice(marker.endRow))
+    var new_code_with_modification = new_code.slice(0, marker.startRow).concat(marker.line.split('\n'), new_code.slice(marker.endRow))
+    console.log(new_code_with_modification)
+    this.setState({ code: new_code_with_modification.join('\n') })
+  }
+
+  handleReject(key) {
+    console.log("No")
+    console.log(key)
+    var s = this.state.markers
+    delete s[key]
+    var s_filtered = s.filter(function (el) {
+      return el != null;
+    });
+    this.setState({ markers: s_filtered })
+    console.log(s_filtered)
+  }
+
   render() {
     const { classes } = this.props
+    var docs = document.getElementsByClassName('error-marker')
+    var docs_filter = Array.prototype.filter.call(docs, function(testElement){
+      return testElement.outerHTML.includes('start');
+    });
 
     return (
       <div className="App">
@@ -153,8 +191,44 @@ class App extends React.Component {
                 width="60vw"
                 onChange={this.onEditorChange.bind(this)}
                 className="ide-editor"
-                fontSize={18}
+                fontSize={17}
+                annotations={[{ row: 0, column: 2, type: 'checkmark', text: 'Some error.'}]}
+                markers={this.state.markers}
               />
+
+            {docs_filter.length > 0 ?
+              Object.keys(docs_filter).map(key => {
+                console.log(this.state)
+                if(typeof this.state.markers[key] === 'undefined'){
+                  return null
+                }
+                var el = docs_filter[key]
+
+                return (
+                  <Popper
+                    className={classes.popover}
+                    open
+                    anchorEl={el}
+                    placement="bottom-end"
+                    key={key}
+                    modifiers={{
+                      arrow: {
+                        enabled: true
+                      }
+                    }}
+                  >
+                    <Paper className={classes.paper}>
+                      {this.state.markers[key].line}
+                      <IconButton className={classes.button} aria-label="Accept" onClick={() => this.handleAccept(key)}>
+                        <CheckIcon/>
+                      </IconButton>
+                      <IconButton className={classes.button} aria-label="Reject" onClick={() => this.handleReject(key)}>
+                        <CloseIcon/>
+                      </IconButton>
+                    </Paper>
+                  </Popper>
+                )
+              }) : null}
             </Grid>
             <Grid item xs={4}>
               <InputPanel
