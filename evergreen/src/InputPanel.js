@@ -8,6 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/styles'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+import phone from "./phone.png";
+import plane from "./plane.png";
+import car from "./car.png";
 
 const styles = ({
   paper: {
@@ -16,6 +19,9 @@ const styles = ({
   outer: {
 
   },
+  emoji: {
+    fontSize: 20,
+  }
 });
 
 class InputPanel extends React.Component {
@@ -48,9 +54,9 @@ class InputPanel extends React.Component {
           <Grid item>
             <Typography variant="h6">About your Code</Typography>
           </Grid>
-          <Grid item container direciton="row" spacing={4}  justify="space-evenly" alignItems="center">
+          <Grid item container direction="row" spacing={5}  justify="space-evenly" alignItems="center">
             <Grid item xs>
-              <FormControl className={classes.formControl} fullWidth>
+              <FormControl className={classes.formControl} fullWidth> 
                 <InputLabel htmlFor="machine-select">Machine</InputLabel>
                 <Select
                   value={this.state.machine}
@@ -98,7 +104,7 @@ class InputPanel extends React.Component {
             <Typography variant="h6">Analytics</Typography>
           </Grid>
 
-          <Grid item container direction="row" spacing={1} justify="flex-start" alignItems="center">
+          <Grid item container direction="column" spacing={1} justify="flex-start" alignItems="center">
             <Grid item>
               <Typography variant="body2">Every 24 hours, your code produces: </Typography>
             </Grid>
@@ -107,19 +113,37 @@ class InputPanel extends React.Component {
             </Grid>
           </Grid>
 
-          <Grid item container direction="column" spacing={1}>
+          <Grid item>
+            <Typography variant="body2"> This is equivalent to:</Typography>
+          </Grid>
+
+          <Grid item container direction="row" spacing={1}>
             {this.props.impacts ? this.props.impacts.map((impact) => {
               var text = ""
+              var emoji = ""
               if (counter === 0) {
-                  text = "Avg Humans Daily Consumption"
+                  text = "Avg Human Daily Consumption"
+                  emoji = "💻"
               } else if (counter === 1) {
                   text = "Flights from LA to NY"
+                  emoji = "✈️"
               } else if (counter === 2) {
                   text = "Car Lifetimes"
+                  emoji = "🚘"
               }
               counter++
               return (
-                <Typography key={counter} variant="body2">{impact} {text}</Typography>
+                <Grid item xs container direction="column" spacing={-2}>
+                  <Grid item>
+                    <h1 className="classes.emoji"> {emoji} </h1>
+                  </Grid>
+                  <Grid item>
+                    <Typography key={counter} variant="h5">{impact}</Typography>
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body2">{text}</Typography>
+                  </Grid>
+                </Grid>
               )
             }) : null}
           </Grid>

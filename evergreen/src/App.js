@@ -254,7 +254,6 @@ class App extends React.Component {
               alt="stop warning me"
               onClick={() => this.handleClick()}
             />
-
         </div>
       </div>
     );
