@@ -154,6 +154,20 @@ class InputPanel extends React.Component {
         </Grid>
       </Paper>
     )
+    if(this.props.pounds === 0) {
+      outputPanel = (
+        <Paper className={classes.paper}>
+          <Grid container direction="column" spacing={1} alignItems="center" justify="center">
+            <Grid item>
+              <Typography variant="h2">😞</Typography>
+            </Grid>
+            <Grid item>
+              <Typography variant="h6">Add or check your code!</Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+      )
+    }
     if(this.props.isAnalyzing) {
       outputPanel = (
         <Paper className={classes.paper}>
