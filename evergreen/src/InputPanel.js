@@ -21,10 +21,13 @@ import {
   WanderingCubes,
   Wave
 } from 'better-react-spinkit'
+import zIndex from '@material-ui/core/styles/zIndex';
 
 const styles = ({
   paper: {
     padding: 25,
+    zIndex: 5,
+    backgroundColor: "#ffffff90",
   },
   outer: {
 
