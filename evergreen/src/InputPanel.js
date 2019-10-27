@@ -9,17 +9,7 @@ import { withStyles } from '@material-ui/styles'
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import {
-  ChasingDots,
-  Circle,
-  CubeGrid,
-  DoubleBounce,
-  FadingCircle,
   FoldingCube,
-  Pulse,
-  RotatingPlane,
-  ThreeBounce,
-  WanderingCubes,
-  Wave
 } from 'better-react-spinkit'
 import zIndex from '@material-ui/core/styles/zIndex';
 
@@ -111,7 +101,6 @@ class InputPanel extends React.Component {
 
     var outputPanel = (
       <Paper className={classes.paper}>
-        <FoldingCube color='#448479' size={50}/>
         <Grid container direction="column" spacing={1} alignItems="stretch" justify="center">
 
           <Grid item>
@@ -165,6 +154,20 @@ class InputPanel extends React.Component {
         </Grid>
       </Paper>
     )
+    if(this.props.isAnalyzing) {
+      outputPanel = (
+        <Paper className={classes.paper}>
+          <Grid container direction="column" spacing={1} alignItems="center" justify="center">
+            <Grid item>
+              <FoldingCube color='#448479' size={50}/>
+            </Grid>
+            <Grid item>
+              <Typography>Analyzing your code...</Typography>
+            </Grid>
+          </Grid>
+        </Paper>
+      )
+    }
     return (
       <Grid container direction="column" spacing={2}>
         <Grid item>

@@ -56,7 +56,9 @@ class App extends React.Component {
         machine: "local",
         animation_stage_cur: 0,
         animation_stage: 0,
-        markers: []
+        animation_timeout: 9,
+        markers: [],
+        isAnalyzing: true
     }
     this.makeRequest(100, "local")
   }
@@ -84,17 +86,25 @@ class App extends React.Component {
   respondToStage() {
     var self = this
     if(this.state.animation_stage_cur > this.state.animation_stage) {
-      setTimeout(function () {
-          self.decrementAnimationStage();
-        }, 400)
+      this.setState({
+        animation_timeout: setTimeout(function () {
+            self.decrementAnimationStage();
+          }, 200)
+      })
+
     } else if(this.state.animation_stage_cur < this.state.animation_stage) {
-      setTimeout(function () {
-          self.incrementAnimationStage();
-        }, 600)
+      this.setState({
+        animation_timeout: setTimeout(function () {
+            self.incrementAnimationStage();
+          }, 200)
+      })
     }
   }
 
   makeRequest(requests_per_day, machine) {
+    this.setState({
+      isAnalyzing: true,
+    })
     getPound(this.state.code, requests_per_day, machine)
       .then(response => {
         return response.json()
@@ -104,11 +114,21 @@ class App extends React.Component {
         var suggestions = data.suggestions
         var markers = suggestions.map(s => { return { startRow: s.start - 1, startCol: 0, endRow: s['end'], endCol: 0, className: 'error-marker', type: 'background', line: s.line }})
         console.log(markers)
-        this.setState({ pounds: data.pounds, animation_stage: stage, markers: markers, impacts: data.impacts })
+        if (this.state.animation_timeout) {
+           clearTimeout(this.state.animation_timeout);
+        }
+        this.setState({
+          pounds: data.pounds,
+          animation_stage: stage,
+          markers: markers,
+          impacts: data.impacts,
+          isAnalyzing: false,
+          animation_timeout: setTimeout(function () {
+              self.respondToStage();
+            }, 100)
+        })
         var self = this
-        setTimeout(function () {
-            self.respondToStage();
-          }, 400)
+
       })
   }
 
@@ -119,12 +139,14 @@ class App extends React.Component {
     }
 
     const self = this
+
     this.setState({
        code: newValue,
        typing: false,
+       isAnalyzing: true,
        typingTimeout: setTimeout(function () {
            self.makeRequest(self.state.requests_per_day, self.state.machine);
-         }, 1500)
+         }, 1000)
     });
   }
 
@@ -249,6 +271,7 @@ class App extends React.Component {
                 pounds={this.state.pounds}
                 impacts={this.state.impacts}
                 onChange={this.onInputPanel.bind(this)}
+                isAnalyzing={this.state.isAnalyzing}
               />
             </Grid>
           </Grid>
