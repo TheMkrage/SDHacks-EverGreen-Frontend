@@ -49,7 +49,7 @@ class InputPanel extends React.Component {
 
     this.state = {
       machine: "local",
-      requests_per_day: 100
+      requests_per_day: 1000000
     }
   }
 
@@ -71,8 +71,19 @@ class InputPanel extends React.Component {
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={0} alignItems="stretch">
           <Grid item container direction="row" spacing={5}  justify="space-evenly" alignItems="center">
-            <Grid item xs>
-              <FormControl className={classes.formControl} fullWidth>
+            <Grid item>
+              <TextField
+                id="requests_per_day"
+                label="Daily Requests"
+                fullWidth
+                className={classes.textField}
+                value={this.state.requests_per_day}
+                onChange={this.handleRequestsPerDayChange.bind(this)}
+                margin="normal"
+              />
+            </Grid>
+            <Grid item>
+              <FormControl>
                 <InputLabel htmlFor="machine-select">Machine</InputLabel>
                 <Select
                   value={this.state.machine}
@@ -95,17 +106,7 @@ class InputPanel extends React.Component {
                   <MenuItem value={"t3.nano"}>t3.nano</MenuItem>
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item xs>
-              <TextField
-                id="requests_per_day"
-                label="Requests Per Day"
-                fullWidth
-                className={classes.textField}
-                value={this.state.requests_per_day}
-                onChange={this.handleRequestsPerDayChange.bind(this)}
-                margin="normal"
-              />
+
             </Grid>
           </Grid>
         </Grid>
@@ -125,7 +126,7 @@ class InputPanel extends React.Component {
                 <h4 className={classes.smallWord}>Daily Emissions</h4>
               </Grid>
               <Grid item>
-                <h1 className={classes.bigNum}> {this.props.pounds} </h1>
+                <h1 className={classes.bigNum}> {string_pounds} </h1>
               </Grid>
               <Grid item>
                 <h2 className={classes.smallWord}> lb CO<sub>2</sub></h2>

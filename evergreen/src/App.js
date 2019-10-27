@@ -27,6 +27,7 @@ WebFont.load({
 
 const styles = ({
   popover: {
+    paddingLeft: 15
     //pointerEvents: 'none'
   },
   paper: {
@@ -40,6 +41,12 @@ const styles = ({
   outer: {
 
   },
+  button: {
+    color: 'green'
+  },
+  xButton: {
+    color: 'red'
+  }
 });
 
 class App extends React.Component {
@@ -52,7 +59,7 @@ class App extends React.Component {
         typing: false,
         typingTimeout: 0,
         pounds: 0,
-        requests_per_day: 100,
+        requests_per_day: 1000000,
         machine: "local",
         animation_stage_cur: 0,
         animation_stage: 0,
@@ -60,7 +67,7 @@ class App extends React.Component {
         markers: [],
         isAnalyzing: true
     }
-    this.makeRequest(100, "local")
+    this.makeRequest(1000000, "local")
   }
 
   onInputPanel(machine, requests_per_day) {
@@ -110,9 +117,9 @@ class App extends React.Component {
         return response.json()
       })
       .then(data => {
-        var stage = Math.floor( 1 * (Math.log(data.pounds + 1) / Math.log(1.8)));
+        var stage = Math.floor( (Math.log(data.pounds*66 + 1) / Math.log(1.1))/24.4);
         var suggestions = data.suggestions
-        var markers = suggestions.map(s => { return { startRow: s.start - 1, startCol: 0, endRow: s['end'], endCol: 0, className: 'error-marker', type: 'background', line: s.line }})
+        var markers = suggestions.map(s => { return { startRow: s.start - 1, startCol: 0, endRow: s['end'], endCol: 0, className: 'error-marker', type: 'background', line: s.line, text: s.text }})
         console.log(markers)
         if (this.state.animation_timeout) {
            clearTimeout(this.state.animation_timeout);
@@ -250,11 +257,11 @@ class App extends React.Component {
                     }}
                   >
                     <Paper className={classes.paper}>
-                      {this.state.markers[key].line}
-                      <IconButton className={classes.button} aria-label="Accept" onClick={() => this.handleAccept(key)}>
+                      {this.state.markers[key].text}
+                      <IconButton className={classes.button} color='inherit' aria-label="Accept" onClick={() => this.handleAccept(key)}>
                         <CheckIcon/>
                       </IconButton>
-                      <IconButton className={classes.button} aria-label="Reject" onClick={() => this.handleReject(key)}>
+                      <IconButton className={classes.xButton} color='primary' aria-label="Reject" onClick={() => this.handleReject(key)}>
                         <CloseIcon/>
                       </IconButton>
                     </Paper>
