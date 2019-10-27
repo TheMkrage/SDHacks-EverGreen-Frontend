@@ -86,11 +86,11 @@ class App extends React.Component {
     if(this.state.animation_stage_cur > this.state.animation_stage) {
       setTimeout(function () {
           self.decrementAnimationStage();
-        }, 800)
+        }, 400)
     } else if(this.state.animation_stage_cur < this.state.animation_stage) {
       setTimeout(function () {
           self.incrementAnimationStage();
-        }, 800)
+        }, 600)
     }
   }
 
@@ -129,7 +129,11 @@ class App extends React.Component {
   }
 
   handleClick() {
-    this.setState({ animation_stage: this.state.animation_stage + 1})
+    this.setState({ animation_stage: this.state.animation_stage + 15})
+    var self = this
+        setTimeout(function () {
+            self.respondToStage();
+          }, 400)
     // const sceneFadeOut = document.getElementById('scene');
     // sceneFadeOut.classList.toggle('scene-leave');
     // const sceneFadeIn = document.getElementById('next-scene');
@@ -255,20 +259,108 @@ class App extends React.Component {
           </Grid>
         </div>
         <div className="scenediv">
+            {/* Tree Animations */}
             <img
-              src={require("../src/phase2tree.png")}
+              src={require("../src/treeBack2.png")}
+              id="art"
+              className={this.state.animation_stage_cur <= 1 ? 'slideIn' : 'slideOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/treeBack4.png")}
+              id="art"
+              className={this.state.animation_stage_cur <= 3 ? 'slideIn' : 'slideOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/treeBack6.png")}
+              id="art"
+              className={this.state.animation_stage_cur <= 5 ? 'slideIn' : 'slideOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/treeBack7.png")}
+              id="art"
+              className={this.state.animation_stage_cur <= 6 ? 'slideIn' : 'slideOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/backGood.png")}
+              id="art-scene"
+              className= "fadeIn"
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/treeFront3.png")}
               id="art"
               className={this.state.animation_stage_cur <= 2 ? 'slideIn' : 'slideOut'}
               alt="stop warning me"
               onClick={() => this.handleClick()}
             />
             <img
-              src={require("../src/phase2.png")}
+              src={require("../src/treeFront5.png")}
               id="art"
-              className="slideIn"
+              className={this.state.animation_stage_cur <= 4 ? 'slideIn' : 'slideOut'}
               alt="stop warning me"
               onClick={() => this.handleClick()}
             />
+            <img
+              src={require("../src/frontGood.png")}
+              id="art-scene"
+              className= "fadeIn"
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+
+            {/* Factory Animations */}
+            <img
+              src={require("../src/factoryBack10.png")}
+              id="art-factory"
+              className={this.state.animation_stage_cur <= 9 ? 'slideOut' : 'slideIn'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/factoryBack11.png")}
+              id="art-factory"
+              className={this.state.animation_stage_cur <= 10 ? 'slideOut' : 'slideIn'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/backBad.png")}
+              id="art-factory-scene"
+              className={this.state.animation_stage_cur >= 7 ? 'fadeIn' : 'fadeOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/factoryFront8.png")}
+              id="art-factory"
+              className={this.state.animation_stage_cur <= 7 ? 'slideOut' : 'slideIn'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/factoryFront9.png")}
+              id="art-factory"
+              className={this.state.animation_stage_cur <= 8 ? 'slideOut' : 'slideIn'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+            <img
+              src={require("../src/frontBad.png")}
+              id="art-factory-scene"
+              className={this.state.animation_stage_cur >= 7 ? 'fadeIn' : 'fadeOut'}
+              alt="stop warning me"
+              onClick={() => this.handleClick()}
+            />
+
         </div>
       </div>
     );
