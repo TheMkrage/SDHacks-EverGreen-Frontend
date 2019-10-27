@@ -145,7 +145,15 @@ class App extends React.Component {
     console.log(new_code.slice(marker.endRow))
     var new_code_with_modification = new_code.slice(0, marker.startRow).concat(marker.line.split('\n'), new_code.slice(marker.endRow))
     console.log(new_code_with_modification)
-    this.setState({ code: new_code_with_modification.join('\n') })
+
+    var s = this.state.markers
+    delete s[key]
+    var s_filtered = s.filter(function (el) {
+      return el != null;
+    });
+    var n = new_code_with_modification.join('\n')
+    this.setState({ code: n, markers: s_filtered })
+    this.onEditorChange(n)
   }
 
   handleReject(key) {
@@ -166,6 +174,14 @@ class App extends React.Component {
     var docs_filter = Array.prototype.filter.call(docs, function(testElement){
       return testElement.outerHTML.includes('start');
     });
+
+
+    if(docs_filter.length === 0 && this.state.markers.length !== 0) {
+      var self = this
+      setTimeout(function () {
+          self.setState({ state: self.state });
+        }, 100)
+    }
 
     return (
       <div className="App">
@@ -198,8 +214,7 @@ class App extends React.Component {
 
             {docs_filter.length > 0 ?
               Object.keys(docs_filter).map(key => {
-                console.log(this.state)
-                if(typeof this.state.markers[key] === 'undefined'){
+                if(key >= this.state.markers.length) {
                   return null
                 }
                 var el = docs_filter[key]
