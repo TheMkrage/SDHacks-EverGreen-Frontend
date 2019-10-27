@@ -4,12 +4,19 @@ import { getPound, getMetric } from './network/backend.js'
 import InputPanel from "./InputPanel.js"
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/styles';
+import WebFont from 'webfontloader';
 
 import './App.css';
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-dreamweaver";
 import { styled } from '@material-ui/core';
+
+WebFont.load({
+  google: {
+    families: ['Lato:400,900', 'sans-serif']
+  }
+});
 
 const styles = ({
   root: {
@@ -90,17 +97,16 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="header">
+          <img
+              src={require("../src/evergreenlogo.png")}
+              id="logo"
+          />
           <p>
-            EVERGREEN LMAOOOO
+            EVERGREEN
           </p>
         </header>
-        <div className="menu">
-          <p>
-            menu stuff change language idk
-             Pounds: {this.state.pounds}
-          </p>
-        </div>
+
         <div className="ide">
           <Grid container direction="row" className={classes.outer}>
             <Grid item xs={8}>
@@ -109,11 +115,11 @@ class App extends React.Component {
                 value={this.state.code}
                 theme="dreamweaver"
                 wrapEnabled="true"
-                height="80vh"
+                height="86vh"
                 width="60vw"
                 onChange={this.onEditorChange.bind(this)}
                 className="ide-editor"
-                fontSize={20}
+                fontSize={18}
               />
             </Grid>
             <Grid item xs={4}>

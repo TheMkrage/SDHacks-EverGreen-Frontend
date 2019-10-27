@@ -11,6 +11,7 @@
     "react-scripts": "3.2.0",
     "react-transition-group": "^1.2.1",
     "typescript": "^3.6.4",
+    "webfontloader": "^1.6.28",
     "webpack": "^4.41.0"
   },
   "scripts": {
