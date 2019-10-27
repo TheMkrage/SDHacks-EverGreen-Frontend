@@ -23,7 +23,23 @@ const styles = ({
 
   },
   emoji: {
-    fontSize: 20,
+    marginBlockStart: "0.25em",
+    marginBlockEnd: "0.25em",
+    color: "#484848",
+    fontWeight: "normal",
+  },
+  bigNum: {
+    color: "#484848",
+    fontSize: "5em",
+    marginBlockStart: "0",
+    marginBlockEnd: "0",
+    fontWeight: "normal",
+  },
+  smallWord: {
+    marginBlockStart: "0",
+    marginBlockEnd: "0",
+    color: "#777777",
+    fontWeight: "normal",
   }
 });
 
@@ -54,9 +70,6 @@ class InputPanel extends React.Component {
     var inputPanel = (
       <Paper className={classes.paper}>
         <Grid container direction="column" spacing={0} alignItems="stretch">
-          <Grid item>
-            <Typography variant="h6">About your Code</Typography>
-          </Grid>
           <Grid item container direction="row" spacing={5}  justify="space-evenly" alignItems="center">
             <Grid item xs>
               <FormControl className={classes.formControl} fullWidth> 
@@ -104,58 +117,58 @@ class InputPanel extends React.Component {
         <Grid container direction="column" spacing={1} alignItems="stretch" justify="center">
 
           <Grid item>
-            <Typography variant="h6">Analytics</Typography>
+            <Typography variant="h6" text-align="left">Analytics</Typography>
           </Grid>
 
-          <Grid item container direction="column" spacing={1} justify="flex-start" alignItems="center">
-            <Grid item>
-              <Typography variant="body2">Every 24 hours, your code produces: </Typography>
+          <Grid item container direction="row" spacing={2} justify="space-between" alignItems="center">
+            <Grid item xs container direction="column" alignItems="left" xs={5}>
+              <Grid item>
+                <p className={classes.smallWord}>Every 24 hours</p> 
+              </Grid>
+              <Grid item>
+                <h1 className={classes.bigNum}> {this.props.pounds} </h1>  
+              </Grid>
+              <Grid item>
+                <h2 className={classes.smallWord}> lbs CO2 </h2>  
+              </Grid>
             </Grid>
-            <Grid item>
-              <Typography variant="body1"> {this.props.pounds} lb of CO2</Typography>
-            </Grid>
-          </Grid>
 
-          <Grid item>
-            <Typography variant="body2"> This is equivalent to:</Typography>
-          </Grid>
-
-          <Grid item container direction="row" spacing={1}>
+            <Grid item container direction="column" xs={7} spacing={-2}>
             {this.props.impacts ? this.props.impacts.map((impact) => {
               var text = ""
               var emoji = ""
               if (counter === 0) {
                   text = "Avg Human Daily Consumption"
-                  emoji = "💻"
+                  emoji = "💻 "
               } else if (counter === 1) {
-                  text = "Flights from LA to NY"
-                  emoji = "✈️"
+                text = "Flight from LA to NY"
+                emoji = "✈️ "
               } else if (counter === 2) {
                   text = "Car Lifetimes"
-                  emoji = "🚘"
+                  emoji = "🚘 "
               }
               counter++
               return (
-                <Grid item xs container direction="column" spacing={-2}>
-                  <Grid item>
-                    <h1 className="classes.emoji"> {emoji} </h1>
+                <Grid item container direction="row" spacing={0} alignItems="center">
+                  <Grid item xs={5}>
+                    <h1 className={classes.emoji}> {emoji} {impact} </h1>
                   </Grid>
-                  <Grid item>
-                    <Typography key={counter} variant="h5">{impact}</Typography>
-                  </Grid>
-                  <Grid item>
-                    <Typography variant="body2">{text}</Typography>
+                  <Grid item container direction="column" xs={7}>
+                    <Grid item>
+                      <p className={classes.smallWord}> {text} </p>
+                    </Grid>
                   </Grid>
                 </Grid>
               )
             }) : null}
+            </Grid>
           </Grid>
 
         </Grid>
       </Paper>
     )
     return (
-      <Grid container direction="column" spacing={2}>
+      <Grid container direction="column" spacing={2} zIndex={10}>
         <Grid item>
           {inputPanel}
         </Grid>

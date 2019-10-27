@@ -56,7 +56,8 @@ class App extends React.Component {
         machine: "local",
         animation_stage_cur: 0,
         animation_stage: 0,
-        markers: []
+        markers: [],
+        impacts: [1, 2, 3],
     }
     this.makeRequest(100, "local")
   }
