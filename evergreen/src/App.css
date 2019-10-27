@@ -44,7 +44,7 @@ html, body {
 }
 
 .ide-editor {
-  background-color: #eff3e250;
+  background-color: #e6ede280;
   border-radius: 5px;
   bottom: 0;
   z-index: 0;
@@ -63,29 +63,13 @@ html, body {
   background-color: #ffd8d8;
 }
 
-#next-scene {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  z-index: 0;
-  /* pointer-events: none; */
-  transition: opacity 5s;
-  opacity: 0;
-}
-
-#next-scene.scene-come {
-  opacity: 1;
-}
-
-
 #art {
   width: 100%;
   position: absolute;
   bottom: 0px;
   left: 0px;
   z-index: 0;
-  /* pointer-events: none; */
+  pointer-events: none;
   opacity: 1;
   transform: translateY(300px);
   transition: transform 800ms ease-in;
@@ -105,7 +89,7 @@ html, body {
   bottom: -450px;
   left: 0px;
   z-index: 0;
-  /* pointer-events: none; */
+  pointer-events: none;
   opacity: 1;
   transform: translateY(0);
   transition: transform 800ms ease-in;
@@ -125,7 +109,7 @@ html, body {
   bottom: 0px;
   left: 0px;
   z-index: 0;
-  /* pointer-events: none; */
+  pointer-events: none;
   opacity: 1;
   transition: opacity 3s;
 }
@@ -144,7 +128,7 @@ html, body {
   bottom: 0px;
   left: 0px;
   z-index: 0;
-  /* pointer-events: none; */
+  pointer-events: none;
   opacity: 0;
   transition: opacity 3s;
 }

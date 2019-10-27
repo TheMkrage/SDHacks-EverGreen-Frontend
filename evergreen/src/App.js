@@ -129,11 +129,6 @@ class App extends React.Component {
   }
 
   handleClick() {
-    this.setState({ animation_stage: this.state.animation_stage + 15})
-    var self = this
-        setTimeout(function () {
-            self.respondToStage();
-          }, 400)
     // const sceneFadeOut = document.getElementById('scene');
     // sceneFadeOut.classList.toggle('scene-leave');
     // const sceneFadeIn = document.getElementById('next-scene');

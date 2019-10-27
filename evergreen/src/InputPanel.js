@@ -11,10 +11,13 @@ import TextField from '@material-ui/core/TextField';
 import phone from "./phone.png";
 import plane from "./plane.png";
 import car from "./car.png";
+import zIndex from '@material-ui/core/styles/zIndex';
 
 const styles = ({
   paper: {
     padding: 25,
+    zIndex: 5,
+    backgroundColor: "#ffffff90",
   },
   outer: {
 
