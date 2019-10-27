@@ -129,7 +129,7 @@ class InputPanel extends React.Component {
                 <h1 className={classes.bigNum}> {this.props.pounds} </h1>  
               </Grid>
               <Grid item>
-                <h2 className={classes.smallWord}> lbs CO2 </h2>  
+                <h2 className={classes.smallWord}> lbs CO<sub>2</sub> </h2>  
               </Grid>
             </Grid>
 
