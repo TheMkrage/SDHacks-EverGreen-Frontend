@@ -58,6 +58,11 @@ html, body {
   bottom: 0px;
 }
 
+.error-marker {
+  position: absolute;
+  background-color: #ffd8d8;
+}
+
 #next-scene {
   width: 100%;
   position: absolute;
