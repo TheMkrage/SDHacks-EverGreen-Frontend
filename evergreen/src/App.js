@@ -158,14 +158,9 @@ class App extends React.Component {
   }
 
   handleAccept(key) {
-    console.log(key)
     var marker = this.state.markers[key]
     var new_code = this.state.code.split('\n')
-    console.log(new_code.slice(0, marker.startRow))
-    console.log(marker.line.split('\n'))
-    console.log(new_code.slice(marker.endRow))
     var new_code_with_modification = new_code.slice(0, marker.startRow).concat(marker.line.split('\n'), new_code.slice(marker.endRow))
-    console.log(new_code_with_modification)
 
     var s = this.state.markers
     delete s[key]
