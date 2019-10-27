@@ -125,7 +125,7 @@ class InputPanel extends React.Component {
                 <h4 className={classes.smallWord}>Daily Emissions</h4>
               </Grid>
               <Grid item>
-                <h1 className={classes.bigNum}> {string_pounds} </h1>
+                <h1 className={classes.bigNum}> {this.props.pounds} </h1>
               </Grid>
               <Grid item>
                 <h2 className={classes.smallWord}> lb CO<sub>2</sub></h2>
